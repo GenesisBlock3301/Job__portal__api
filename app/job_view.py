@@ -7,3 +7,8 @@ from django.views.generic import View
 class JobDetailView(View):
     def get(self,request):
         return render(request,'app/job/user-profile.html')
+
+
+class BrowseJob(View):
+    def get(self,request):
+        return render(request,'app/job/browse-job.html')

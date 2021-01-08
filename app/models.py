@@ -89,9 +89,11 @@ class Location(models.Model):
     def __str__(self):
         return self.city
 
+
 TYPES = {
     ('F','Full Time'),
-    ('P','Part Time')
+    ('P','Part Time'),
+    ('O','Other')
 }
 
 

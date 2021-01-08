@@ -9,6 +9,8 @@ class HomeView(View):
         return render(request,'app/index-3.html')
 
 
+
+
 class ResumeView(View):
     def get(self,request):
         return render(request,'app/resume/submit-resume.html')
