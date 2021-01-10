@@ -91,23 +91,26 @@ class Location(models.Model):
 
 
 TYPES = {
-    ('F','Full Time'),
-    ('P','Part Time'),
-    ('O','Other')
+    ('Full Time','F'),
+    ('Part Time','P'),
+    ('Other','O')
 }
+
+import datetime
 
 
 class JobPost(models.Model):
     posted_by = models.ForeignKey(CompanyOwner,on_delete=models.CASCADE)
-    job_category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=255)
+    job_category = models.ForeignKey(Category,related_name="job_cats",on_delete=models.CASCADE)
     job_type = models.CharField(choices=TYPES,max_length=255)
     title = models.CharField(max_length=255)
-    locations = models.ForeignKey(Location,related_name='job_posts',on_delete=models.CASCADE)
+    locations = models.CharField(max_length=255)
     requirements = models.TextField()
     description = models.TextField(max_length=255)
     salary = models.DecimalField(max_digits=20,decimal_places=2)
     experience = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expire_date = models.CharField(max_length=100,default='')
 
     def __str__(self):
-        return self.title
+        return f"{self.title} and id {self.id}"

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="dez-bnr-inr overlay-black-dark"
+             style="background-image:url('{% static 'images/banner/bnr1.jpg' %}');">
+            <div class="container">
+                <div class="dez-bnr-inr-entry">
+                    <h1 class="text-white">Create Job</h1>
+                    <!-- Breadcrumb row -->
+                    <div class="breadcrumb-row">
+                        <ul class="list-inline">
+                            <li><a href="#">Home</a></li>
+                            <li>Submit Job</li>
+                        </ul>
+                    </div>
+                    <!-- Breadcrumb row END -->
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+        <!-- contact area -->
+        <div class="content-block">
+            <!-- Submit Resume -->
+            <div class="section-full bg-white submit-resume content-inner-2">
+                <div class="container">
+                    <form method="post">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Job Category</label>
+                            <select class="form-select" id="inputGroupSelect01" name="job_cat">
+                                <option selected>Choose...</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Job Type</label>
+                            <select class="form-select" id="inputGroupSelect01" name="job_type">
+                                <option selected>Choose...</option>
+                                {% for type in job_type %}
+                                <option value="{{ type }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            {{ form.locations }}
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            {{ form.description }}
+                        </div>
+                        <div class="form-group">
+                            <label>Salary</label>
+                            {{ form.salary }}
+                        </div>
+                        <div class="form-group">
+                            <label>Requirements</label>
+                            {{ form.requirements }}
+                        </div>
+                        <div class="form-group">
+                            <label>Requirements</label>
+                            {{ form.experience }}
+                        </div>
+                        <div class="form-group">
+                            <label>Expire Date</label>
+                            {{ form.expire_date }}
+                        </div>
+                        <button type="submit" class="site-button">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Submit Resume END -->
+        </div>
+    </div>
+{% endblock %}

@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import View
-
-# Create your views here.
+from .models import *
 
 
 class HomeView(View):
     def get(self,request):
-        return render(request,'app/index-3.html')
+        recentJob = JobPost.objects.all().order_by('created_at')
+        # print(">>>>>>>>>>>>>>>>>>",recentPost)
+        return render(request,'app/index-3.html',{'recentJob':recentJob})
 
 
 

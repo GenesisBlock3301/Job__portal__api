@@ -83,5 +83,9 @@ class CompanyOwner(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=1000)
     company_logo = models.FileField()
-    details = models.CharField(max_length=1000)
+    details = models.TextField(max_length=1000)
+    locations = models.CharField(max_length=255,null=True,blank=True)
+
+    def __str__(self):
+        return self.name
 

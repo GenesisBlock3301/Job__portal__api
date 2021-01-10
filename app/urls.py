@@ -11,6 +11,7 @@ urlpatterns = [
     path('add-education/',views.AddEducationView.as_view(),name='add-education'),
     path('add-certificate/',views.AddCertificateView.as_view(),name='add-certificate'),
 ]+[
-    path('job-detail/',job_view.JobDetailView.as_view(),name='job-view'),
+    path('browse-job/<int:pk>/',job_view.JobDetailView.as_view(),name='job-view'),
     path('browse-job/',job_view.BrowseJob.as_view(),name='browse-job'),
+    path('create-job/',job_view.CreateJob.as_view(),name='create-job'),
 ]
