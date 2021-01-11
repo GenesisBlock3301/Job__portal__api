@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .job_form import *
 from .models import *
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
 class CreateJob(View):
@@ -42,10 +43,20 @@ class CreateJob(View):
 
 
 class BrowseJob(View):
-
     def get(self, request):
-        all_jobs = JobPost.objects.all()
-        return render(request, 'app/job/browse-job.html', {'job_posts': all_jobs})
+        jobs = JobPost.objects.all()
+        page = request.GET.get('page',1)
+        pagination = Paginator(jobs, per_page=1)
+        try:
+            all_jobs = pagination.page(page)
+        except PageNotAnInteger:
+            all_jobs = pagination.page(1)
+        except EmptyPage:
+            all_jobs = Paginator.page(pagination.num_pages)
+        # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>",pagination.num_pages,">>>>>>>>>>>>",jobs_pag.paginator.page_range)
+        job_types = ['Part Time', 'Full Time', 'Other']
+        categories = Category.objects.all()
+        return render(request, 'app/job/browse-job.html', {'job_posts': all_jobs,'job_types':job_types,'categories':categories})
 
 
 class JobDetailView(View):

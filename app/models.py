@@ -107,7 +107,7 @@ class JobPost(models.Model):
     locations = models.CharField(max_length=255)
     requirements = models.TextField()
     description = models.TextField(max_length=255)
-    salary = models.DecimalField(max_digits=20,decimal_places=2)
+    salary = models.CharField(max_length=100)
     experience = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     expire_date = models.CharField(max_length=100,default='')
