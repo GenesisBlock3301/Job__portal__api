@@ -63,3 +63,19 @@ class JobDetailView(View):
     def get(self, request, pk):
         job = get_object_or_404(JobPost, pk=pk)
         return render(request, 'app/job/job-detail.html', {"job": job})
+
+
+from django.http import JsonResponse
+
+
+class SearchJobView(View):
+    def get(self,request):
+        qs = JobPost.objects.all()
+        keyword = request.GET.get('keyword','')
+        location = request.GET.get('location','')
+        print('>>>>>>>>>>>>>>>>>>',location,keyword)
+        context = {
+            'queryset':qs
+        }
+        return render(request,'',context)
+

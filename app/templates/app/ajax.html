@@ -1,0 +1,20 @@
+<script>
+    $('#searchId').click(function (e) {
+        e.preventDefault()
+        let keyword = $("#keywordId").val()
+        let location = $("#locationId").val()
+        let csr = $("input[name=csrfmiddlewaretoken]").val();
+        console.log("Working", keyword, location, csr)
+        let myData = {keyword: keyword, location: location, csrfmiddlewaretoken: csr}
+        $.ajax({
+            url: '{% url 'search-job' %}',
+            method: "GET",
+            data: myData,
+            dataType: 'json',
+            success: function (data) {
+                console.log("Ajax working",data)
+            }
+        })
+
+    })
+</script>

@@ -8,7 +8,7 @@ class HomeView(View):
     def get(self,request):
         recentJob = JobPost.objects.all().order_by('created_at')
         page = request.GET.get('page', 1)
-        pagination = Paginator(jobs, per_page=1)
+        pagination = Paginator(recentJob, per_page=10)
         try:
             all_jobs = pagination.page(page)
         except PageNotAnInteger:
@@ -20,8 +20,6 @@ class HomeView(View):
         categories = Category.objects.all()
         # print(">>>>>>>>>>>>>>>>>>",recentPost)
         return render(request,'app/index-3.html',{'recentJob':all_jobs})
-
-
 
 
 class ResumeView(View):

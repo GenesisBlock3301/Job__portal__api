@@ -14,4 +14,5 @@ urlpatterns = [
     path('browse-job/<int:pk>/',job_view.JobDetailView.as_view(),name='job-view'),
     path('browse-job/',job_view.BrowseJob.as_view(),name='browse-job'),
     path('create-job/',job_view.CreateJob.as_view(),name='create-job'),
+    path('search-job/',job_view.SearchJobView.as_view(),name='search-job'),
 ]
