@@ -1,5 +1,6 @@
 <script>
     $('#searchId').click(function (e) {
+        output = ``
         e.preventDefault()
         let keyword = $("#keywordId").val()
         let location = $("#locationId").val()
@@ -8,11 +9,47 @@
         let myData = {keyword: keyword, location: location, csrfmiddlewaretoken: csr}
         $.ajax({
             url: '{% url 'search-job' %}',
-            method: "GET",
+            method: "POST",
             data: myData,
             dataType: 'json',
             success: function (data) {
                 console.log("Ajax working",data)
+                if(data.status){
+                    console.log(data.search_items)
+                    data.search_items.map(function (job) {
+                        console.log(job)
+                        output+=`
+                            <li>
+                                <a href="/browse-job/${job.id}/">
+                                    <div class="d-flex m-b30">
+                                        <div class="job-post-company">
+                                            <span><img src="images/logo/icon1.png"/></span>
+                                        </div>
+                                        <div class="job-post-info">
+                                            <h4>${job.title}</h4>
+                                            <ul>
+                                                <li><i class="fa fa-map-marker"></i>${job.locations}</li>
+                                                <li><i class="fa fa-bookmark-o"></i>${job.job_type}</li>
+                                                <li><i class="fa fa-clock-o"></i>${job.created_at}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="job-time mr-auto">
+                                            <span>${job.job_type}</span>
+                                        </div>
+                                        <div class="salary-bx">
+                                            <span>${job.salary}</span>
+                                        </div>
+                                    </div>
+                                    <span class="post-like fa fa-heart-o"></span>
+                                </a>
+                            </li>
+                        `
+                        $("#searchItemId").html(output)
+                    })
+                }
+
             }
         })
 

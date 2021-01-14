@@ -69,13 +69,10 @@ from django.http import JsonResponse
 
 
 class SearchJobView(View):
-    def get(self,request):
-        qs = JobPost.objects.all()
-        keyword = request.GET.get('keyword','')
-        location = request.GET.get('location','')
+    def post(self,request):
+        keyword = request.POST.get('keyword','')
+        location = request.POST.get('location','')
         print('>>>>>>>>>>>>>>>>>>',location,keyword)
-        context = {
-            'queryset':qs
-        }
-        return render(request,'',context)
+        qs = JobPost.objects.values().filter(title__icontains=keyword,locations__icontains=location)
+        return JsonResponse({'search_items':list(qs),'status':'ok'})
 
