@@ -1,4 +1,5 @@
 {% load static %}
+{% load poll_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,8 +70,15 @@
                     <!-- extra nav -->
                     <div class="extra-nav">
                         <div class="extra-cell">
-                            <a href="register.html" class="site-button"><i class="fa fa-user"></i> Sign Up</a>
-                            <a href="login.html" class="site-button"><i class="fa fa-lock"></i> login</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'user-logout' %}" class="site-button"><i class="fa fa-lock"></i> logout</a>
+                                <a href="" class="site-button"><i class="fa fa-lock"></i> {{ user.email|email_split }}</a>
+                            {% else %}
+                                <a href="{% url 'owner-user' %}" class="site-button"><i class="fa fa-user"></i> Owner</a>
+                                <a href="{% url 'seeker-user' %}" class="site-button"><i class="fa fa-user"></i> Seeker</a>
+                                <a href="{% url 'login-user' %}" class="site-button"><i class="fa fa-lock"></i> login</a>
+                            {% endif %}
+
                         </div>
                     </div>
                     <!-- Quik search -->
@@ -89,9 +97,9 @@
                             <li>
                                 <a href="#">For Candidates <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">
-{#                                    <li><a href="browse-job.html" class="dez-page">Browse Job</a></li>#}
+                                    {#                                    <li><a href="browse-job.html" class="dez-page">Browse Job</a></li>#}
                                     <li><a href="#" class="dez-page">companies</a></li>
-{#                                    <li><a href="job-detail.html" class="dez-page">Job Detail</a></li>#}
+                                    {#                                    <li><a href="job-detail.html" class="dez-page">Job Detail</a></li>#}
                                 </ul>
                             </li>
                             <li>
@@ -99,39 +107,6 @@
                                 <ul class="sub-menu">
                                     <li><a href="#" class="dez-page">Browse Candidates</a></li>
                                     <li><a href="#" class="dez-page">Submit Resume</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Pages <i class="fa fa-chevron-down"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="#" class="dez-page">About Us</a></li>
-                                    <li><a href="#" class="dez-page">Coming Soon</a></li>
-                                    <li><a href="#" class="dez-page">Error 404</a></li>
-                                    <li><a href="#" class="dez-page">Portfolio</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#" class="dez-page">Portfolio Grid 2 </a>
-                                            </li>
-                                            <li><a href="#" class="dez-page">Portfolio Grid 3 </a>
-                                            </li>
-                                            <li><a href="#" class="dez-page">Portfolio Grid 4 </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="login.html" class="dez-page">Login</a></li>
-                                    <li><a href="register.html" class="dez-page">Register</a></li>
-                                    <li><a href="contact.html" class="dez-page">Contact Us</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Blog <i class="fa fa-chevron-down"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="blog-classic.html" class="dez-page">Classic</a></li>
-                                    <li><a href="blog-classic-sidebar.html" class="dez-page">Classic Sidebar</a></li>
-                                    <li><a href="blog-detailed-grid.html" class="dez-page">Detailed Grid</a></li>
-                                    <li><a href="blog-detailed-grid-sidebar.html" class="dez-page">Detailed Grid
-                                        Sidebar</a></li>
-                                    <li><a href="blog-left-img.html" class="dez-page">Left Image Sidebar</a></li>
-                                    <li><a href="blog-details.html" class="dez-page">Blog Details</a></li>
                                 </ul>
                             </li>
                         </ul>

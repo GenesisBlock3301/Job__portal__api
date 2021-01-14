@@ -33,18 +33,19 @@
                     <div class="max-w500 m-auto m-b30">
                         <div class="p-a30 border-1 seth">
                             <div class="tab-content nav">
-                                <form id="login" class="tab-pane active col-12 p-a0 ">
+                                <form id="login" method="post" class="tab-pane active col-12 p-a0 ">
+                                    {% csrf_token %}
                                     <h4 class="font-weight-700">LOGIN</h4>
                                     <p class="font-weight-600">If you have an account with us, please log in.</p>
                                     <div class="form-group">
                                         <label class="font-weight-700">E-MAIL *</label>
-                                        <input name="dzName" required="" class="form-control"
-                                               placeholder="Your Email Id" type="email">
+                                        {{ form.email }}
+                                        {{ form.email.errors }}
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-700">PASSWORD *</label>
-                                        <input name="dzName" required="" class="form-control "
-                                               placeholder="Type Password" type="password">
+                                        {{ form.password }}
+                                        {{ form.password.errors }}
                                     </div>
                                     <div class="text-left">
                                         <button class="site-button m-r5 button-lg">login</button>

@@ -7,8 +7,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 class HomeView(View):
     def get(self,request):
         recentJob = JobPost.objects.all().order_by('created_at')
-        keyword = request.GET.get('keyword', '')
-        location = request.GET.get('location', '')
+        categories = Category.objects.all()
         page = request.GET.get('page', 1)
         pagination = Paginator(recentJob, per_page=10)
         try:
@@ -17,11 +16,7 @@ class HomeView(View):
             all_jobs = pagination.page(1)
         except EmptyPage:
             all_jobs = Paginator.page(pagination.num_pages)
-        # if keyword != '' and keyword is not None:
-        #     qs = recentJob.filter(title__icontains=keyword)
-        #     if qs:
-        #         return render(request, 'app/index-3.html', {'recentJob': all_jobs, 'searchJobs': qs})
-        return render(request,'app/index-3.html',{'recentJob':all_jobs})
+        return render(request,'app/index-3.html',{'recentJob':all_jobs,'categories':categories})
 
 
 class ResumeView(View):
