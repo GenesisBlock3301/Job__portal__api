@@ -15,4 +15,6 @@ urlpatterns = [
     path('browse-job/',job_view.BrowseJob.as_view(),name='browse-job'),
     path('create-job/',job_view.CreateJob.as_view(),name='create-job'),
     path('search-job/',job_view.SearchJobView.as_view(),name='search-job'),
+]+[
+    path('category-detail/<int:id>/',job_view.CategoryDetailsView.as_view(),name='category-details')
 ]

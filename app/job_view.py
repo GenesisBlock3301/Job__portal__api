@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from .job_form import *
 from .models import *
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 
 
 class CreateJob(View):
@@ -45,8 +46,8 @@ class CreateJob(View):
 class BrowseJob(View):
     def get(self, request):
         jobs = JobPost.objects.all()
-        page = request.GET.get('page',1)
-        pagination = Paginator(jobs, per_page=1)
+        page = request.GET.get('page', 1)
+        pagination = Paginator(jobs, per_page=10)
         try:
             all_jobs = pagination.page(page)
         except PageNotAnInteger:
@@ -56,7 +57,8 @@ class BrowseJob(View):
         # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>",pagination.num_pages,">>>>>>>>>>>>",jobs_pag.paginator.page_range)
         job_types = ['Part Time', 'Full Time', 'Other']
         categories = Category.objects.all()
-        return render(request, 'app/job/browse-job.html', {'job_posts': all_jobs,'job_types':job_types,'categories':categories})
+        return render(request, 'app/job/browse-job.html',
+                      {'job_posts': all_jobs, 'job_types': job_types, 'categories': categories})
 
 
 class JobDetailView(View):
@@ -65,14 +67,26 @@ class JobDetailView(View):
         return render(request, 'app/job/job-detail.html', {"job": job})
 
 
-from django.http import JsonResponse
-
-
 class SearchJobView(View):
-    def post(self,request):
-        keyword = request.POST.get('keyword','')
-        location = request.POST.get('location','')
-        print('>>>>>>>>>>>>>>>>>>',location,keyword)
-        qs = JobPost.objects.values().filter(title__icontains=keyword,locations__icontains=location)
-        return JsonResponse({'search_items':list(qs),'status':'ok'})
+    def post(self, request):
+        keyword = request.POST.get('keyword', '')
+        location = request.POST.get('location', '')
+        # print('>>>>>>>>>>>>>>>>>>',location,keyword)
+        qs = JobPost.objects.values().filter(title__icontains=keyword, locations__icontains=location)
+        return JsonResponse({'search_items': list(qs), 'status': 'ok'})
 
+
+class CategoryDetailsView(View):
+    def get(self, request, id):
+        cat = Category.objects.get(id=id)
+        categories_item = cat.job_cats.all()
+        page = request.GET.get('page', 1)
+        pagination = Paginator(categories_item, per_page=10)
+        try:
+            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>catagory>>>>>>>>>>>>>>>>>>>>>>", page, pagination.num_pages)
+            all_jobs = pagination.page(page)
+        except PageNotAnInteger:
+            all_jobs = pagination.page(1)
+        except EmptyPage:
+            all_jobs = Paginator.page(pagination.num_pages)
+        return render(request, 'app/job/category-detail.html',{'all_jobs':all_jobs,"cat_name":cat.name})

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User,Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 import re
@@ -76,3 +76,24 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="",
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
                                required=True, max_length=30)
+
+
+GENDER_CHOICES = [('1', 'Male'), ('2', 'Female'),('3','Other')]
+MARITAL_STATUS = [('1','Married'),('2','Unmarried')]
+
+
+class UserProfileForm(forms.Form):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'First Name'}), required=True, max_length=30)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Last Name'}), required=True, max_length=30)
+    degree_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Degree'}), required=True, max_length=30)
+    graduate_year = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Graduate Year'}), required=True, max_length=30)
+    father_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Father Name'}), required=True, max_length=30)
+    mother_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Mother Name'}), required=True, max_length=30)
+    gender = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}),choices=GENDER_CHOICES)
+    religion = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Religion'}), required=True, max_length=30)
+    marital_status = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}),choices=MARITAL_STATUS)
+    nationality = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Nationality'}), required=True, max_length=30)
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':"Phone Number"}), required=True, max_length=30)
+    date_of_birth = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':"Death of Birth"}), required=True, max_length=30)
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','placeholder':"Address"}), required=True, max_length=30)
+

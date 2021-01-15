@@ -54,20 +54,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-GENDER = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    ('O', 'Other'),
-)
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    degree_name = models.CharField(max_length=200,default='')
+    graduate_year = models.CharField(max_length=200,default='')
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100, blank=True, null=True)
     mother_name = models.CharField(max_length=100, blank=True, null=True)
-    gender = models.CharField(choices=GENDER, max_length=8)
+    gender = models.CharField( max_length=8)
     religion = models.CharField(max_length=50)
     marital_status = models.CharField(max_length=50, blank=True, null=True)
     nationality = models.CharField(max_length=100)

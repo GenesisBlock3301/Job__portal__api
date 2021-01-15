@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load poll_extras %}
+{% block content %}
+    <!-- Our Job -->
+    <div class="section-full bg-white content-inner-2">
+        <div class="container">
+            <div class="d-flex job-title-bx section-head">
+                <div class="mr-auto">
+                    <h2 class="m-b5">{{ cat_name }} job posts</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-9">
+                    <ul class="post-job-bx" id="searchItemId">
+                        {% if all_jobs %}
+                            {% for job in all_jobs %}
+                                <li>
+{#                                    <a href=>#}
+                                        <div class="d-flex m-b30">
+                                            <div class="job-post-company">
+                                                <span><img src="images/logo/icon1.png"/></span>
+                                            </div>
+                                            <div class="job-post-info">
+                                                <h4>{{ job.title }}</h4>
+                                                <ul>
+                                                    <li><i class="fa fa-map-marker"></i> {{ job.locations }}</li>
+                                                    <li><i class="fa fa-bookmark-o"></i>{{ job.job_type }}</li>
+                                                    <li><i class="fa fa-clock-o"></i> {{ job.created_at }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="job-time mr-auto">
+                                                <span>{{ job.job_type }}</span>
+                                            </div>
+                                            <div class="salary-bx">
+                                                <span>{{ job.salary }}$</span>
+                                            </div>
+                                        </div>
+{#                                    </a>#}
+                                </li>
+                            {% endfor %}
+                            {% else %}
+                            <h2 class="text-center text-danger"> There isn't have such job</h2>
+                        {% endif %}
+                    </ul>
+                    <div class="m-t30">
+                        <div class="d-flex">
+                            {% if all_jobs.has_other_pages %}
+                                {% if all_jobs.has_previous %}
+                                    <a class="site-button button-sm mr-auto"
+                                       href="?page={{ all_jobs.previous_page_number }}"><i
+                                            class="ti-arrow-left"></i> Prev</a>
+                                {% else %}
+                                    <a class="site-button button-sm mr-auto" aria-disabled="true"
+                                       href="#"><i
+                                            class="ti-arrow-left"></i> Prev</a>
+                                {% endif %}
+                                {% if all_jobs.has_next %}
+                                    <a class="site-button button-sm" href="?page={{ all_jobs.next_page_number }}">Next<i
+                                            class="ti-arrow-right"></i></a>
+                                {% else %}
+                                    <a class="site-button button-sm " aria-disabled="true" href="#">Next<i
+                                            class="ti-arrow-right"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Our Job END -->
+
+    </div>
+    {% include "app/ajax.html" %}
+{% endblock %}

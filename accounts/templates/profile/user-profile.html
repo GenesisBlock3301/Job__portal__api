@@ -19,49 +19,22 @@
             <div class="section-full content-inner-1">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="sticky-top">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-6">
-                                        <div class="m-b30">
-                                            <img src="images/blog/grid/pic1.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-6">
-                                        <div class="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
-                                            <h4 class="text-black font-weight-700 p-t10 m-b15">User Details</h4>
-                                            <ul>
-                                                <li><i class="ti-location-pin"></i><strong
-                                                        class="font-weight-700 text-black">Address</strong><span
-                                                        class="text-black-light"> Demo Address #8901 Marmora Road Chi Minh City, Vietnam </span>
-                                                </li>
-                                                <li><i class="ti-shield"></i><strong class="font-weight-700 text-black">Experience</strong>6
-                                                    Year Experience
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="job-info-box">
                                 <h3 class="m-t0 m-b10 font-weight-700 title-head text-center text-dark">
-                                    Nur Amin Sifat
+                                    {{ profile.first_name }} {{ profile.last_name }}
                                 </h3>
                                 <ul class="job-info">
-                                    <li><strong>Education</strong> Computer Science & Engineering</li>
-                                    <li><strong>Graduate Year:</strong> 25th January 2020</li>
-                                    <li><i class="ti-location-pin text-black m-r5"></i> Dhaka</li>
+                                    <li><strong>Education</strong> {{ profile.degree_name }}</li>
+                                    <li><strong>Graduate Year:</strong> {{ profile.graduate_year }}</li>
+                                    <li><i class="ti-location-pin text-black m-r5"></i> {{ profile.address }}</li>
                                 </ul>
                                 <div class="row mt-2">
                                     <div class="col-sm-6 mt-2">
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Father Name</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.father_name }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -69,9 +42,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Mother Name</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.mother_name }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -81,9 +52,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Gender</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.gender }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -91,9 +60,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Religion</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.religion }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -103,9 +70,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Mariterial Status</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.marital_status }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -113,9 +78,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Nationality</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.nationality }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -125,9 +88,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Phone Number</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.phone_number }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -135,9 +96,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Death Of Birth</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.death_of_birth }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -147,72 +106,69 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Address</h5>
-                                                <p class="card-text text-center">With supporting text below as a natural
-                                                    lead-in to
-                                                    additional content.</p>
+                                                <p class="card-text text-center">{{ profile.address }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="margin-top: 30px">
-                                <button type="button" id="btn" class="btn btn-primary mb-5">Edit or Create Profile</button>
+                                <button type="button" id="btn" class="btn btn-primary mb-5">Edit or Create Profile
+                                </button>
                             </div>
                             <form id="form" method="post" action="">
+                                {% csrf_token %}
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="First name"
-                                               aria-label="First name">
+                                        {{ form.first_name }}
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Last name"
-                                               aria-label="Last name">
+                                        {{ form.last_name }}
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Father Name"
-                                               aria-label="First name">
+                                        {{ form.degree_name }}
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Mother Name"
-                                               aria-label="Last name">
+                                        {{ form.graduate_year }}
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Gender"
-                                               aria-label="First name">
+                                        {{ form.father_name }}
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Religion"
-                                               aria-label="Last name">
+                                        {{ form.mother_name }}
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Mariterial Status"
-                                               aria-label="First name">
+                                       {{ form.gender }}
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Nationality"
-                                               aria-label="Last name">
+                                        {{ form.religion }}
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Phone Number"
-                                               aria-label="First name">
+                                        {{ form.marital_status }}
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Date of Birth"
-                                               aria-label="Last name">
+                                        {{ form.nationality }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        {{ form.phone_number }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.date_of_birth }}
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" placeholder="Address"
-                                               aria-label="First name">
+                                        {{ form.address }}
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-4">Save</button>

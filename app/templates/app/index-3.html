@@ -34,10 +34,6 @@
             <div class="d-flex job-title-bx section-head">
                 <div class="mr-auto">
                     <h2 class="m-b5">Recent Jobs</h2>
-                    <h6 class="fw4 m-b0">20+ Recently Added Jobs</h6>
-                </div>
-                <div class="align-self-end">
-                    <a href="#" class="site-button button-sm">Browse All Jobs <i class="fa fa-long-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -108,20 +104,22 @@
             <div class="section-head text-center">
                 <h2 class="m-b5">Popular Categories</h2>
             </div>
-            {% for cat in categories %}
-                <div class="row sp20">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-location-pin"></i></div>
-                                <a href="#" class="dez-tilte">{{ cat.name }}</a>
-                                <p class="m-a0">{{ cat.job_cats.all|length }} Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-location-pin"></i></div>
+            <div class="row sp20">
+                {% for cat in categories %}
+                    <a href="{% url 'category-details' cat.id %}">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="icon-bx-wraper">
+                                <div class="icon-content">
+                                    <div class="icon-md text-primary m-b20"><i class="ti-location-pin"></i></div>
+                                    <a href="#" class="dez-tilte">{{ cat.name }}</a>
+                                    <p class="m-a0">{{ cat.job_cats.all|length }} Open Positions</p>
+                                    <div class="rotate-icon"><i class="ti-location-pin"></i></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            {% endfor %}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
     <!-- About Us END -->
