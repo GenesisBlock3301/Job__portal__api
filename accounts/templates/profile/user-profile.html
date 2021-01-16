@@ -95,8 +95,44 @@
                                     <div class="col-sm-6">
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title text-center text-info">Death Of Birth</h5>
-                                                <p class="card-text text-center">{{ profile.death_of_birth }}</p>
+                                                <h5 class="card-title text-center text-info">Date Of Birth</h5>
+                                                <p class="card-text text-center">{{ profile.date_of_birth }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Experience</h5>
+                                                <p class="card-text text-center">{{ profile.keywords }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Job Type</h5>
+                                                <p class="card-text text-center">{{ profile.job_type }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Preferable Job</h5>
+                                                <p class="card-text text-center">{{ profile.job_name }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Desire Salary</h5>
+                                                <p class="card-text text-center">${{ profile.salary_range }} per hour</p>
                                             </div>
                                         </div>
                                     </div>
@@ -164,6 +200,22 @@
                                     </div>
                                     <div class="col">
                                         {{ form.date_of_birth }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        {{ form.job_name }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.keywords }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        {{ form.job_type }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.salary_range }}
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">

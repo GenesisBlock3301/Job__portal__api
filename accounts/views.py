@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import View
 from .forms import *
 from django.contrib.auth import login, authenticate, logout as dj_logout
@@ -43,23 +43,24 @@ class OwnerSignUpView(View):
 class LoginView(View):
     def get(self, request):
         form = LoginForm
-        return render(request, 'register/login.html', {'form': form})
+        return render(request, 'register/user-login.html', {'form': form})
 
     def post(self, request):
         form = LoginForm(request.POST or None)
         if form.is_valid():
             email = request.POST['email']
             password = request.POST['password']
-            user = authenticate(username=None, email=email, password=password)
+            user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
                 return redirect('home')
-        return render(request, 'auth/login.html', {'form': form, 'status': "Your password or username is incorrect"})
+        return render(request, 'register/user-login.html',
+                      {'form': form, 'status': "Your password or username is incorrect"})
 
 
 def user_logout(request):
     dj_logout(request)
-    return redirect('home')
+    return redirect('login-user')
 
 
 class ProfileView(View):
@@ -73,13 +74,14 @@ class ProfileView(View):
                 profile = Profile.objects.create(user=user, first_name='', last_name='', degree_name='',
                                                  graduate_year='', father_name='', mother_name='',
                                                  gender='', religion='', marital_status='', nationality='',
-                                                 phone_number='', date_of_birth='', address='')
+                                                 phone_number='', date_of_birth='', address='', job_name='',
+                                                 keywords='', salary_range='', job_type='')
 
             form = UserProfileForm(initial={
                 'first_name': profile.first_name,
                 'last_name': profile.last_name,
                 'degree_name': profile.degree_name,
-                'graduate_year':profile.graduate_year,
+                'graduate_year': profile.graduate_year,
                 'father_name': profile.father_name,
                 'mother_name': profile.mother_name,
                 'gender': profile.gender,
@@ -88,7 +90,11 @@ class ProfileView(View):
                 'nationality': profile.nationality,
                 'phone_number': profile.phone_number,
                 'date_of_birth': profile.date_of_birth,
-                'address': profile.address
+                'address': profile.address,
+                'job_name':profile.job_name,
+                'keywords':profile.keywords,
+                'salary_range':profile.salary_range,
+                'job_type':profile.job_type
 
             })
             return render(request, 'profile/user-profile.html', {'profile': profile, 'form': form})
@@ -97,7 +103,7 @@ class ProfileView(View):
 
     def post(self, request):
         form = UserProfileForm(data=request.POST or None)
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",form)
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
         if form.is_valid():
             profile = Profile.objects.get(user=request.user)
             profile.first_name = request.POST['first_name']
@@ -113,7 +119,18 @@ class ProfileView(View):
             profile.phone_number = request.POST['phone_number']
             profile.date_of_birth = request.POST['date_of_birth']
             profile.address = request.POST['address']
+            profile.job_name = request.POST['job_name']
+            profile.keywords = request.POST['keywords']
+            profile.salary_range = request.POST['salary_range']
+            profile.job_type = request.POST['job_type']
             profile.save()
             return redirect('profile')
         else:
             return HttpResponse("Error")
+
+
+class AllUserProfile(View):
+
+    def get(self, request):
+        candidates = Profile.objects.filter(user__is_seeker=True)
+        return render(request, 'profile/browse-candidates.html', {'candidates': candidates})

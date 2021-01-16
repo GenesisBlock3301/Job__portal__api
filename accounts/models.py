@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import PermissionsMixin
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -69,6 +70,11 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     date_of_birth = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
+    job_name = models.CharField(max_length=100, blank=True, null=True,default="")
+    keywords = models.CharField(max_length=100,blank=True,null=True,default='')
+    job_type = models.CharField(max_length=100,blank=True,null=True,default='')
+    salary_range = models.CharField(max_length=100,blank=True,null=True,default='')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
