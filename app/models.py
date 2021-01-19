@@ -54,6 +54,7 @@ class Education(models.Model):
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    professional_title = models.CharField(max_length=255,default='')
     photo = models.FileField(upload_to='media')
     role = models.CharField(max_length=255)
     github = models.CharField(max_length=255, null=True, blank=True)

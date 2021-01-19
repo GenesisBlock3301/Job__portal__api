@@ -72,8 +72,9 @@ class SearchJobView(View):
         keyword = request.POST.get('keyword', '')
         location = request.POST.get('location', '')
         # print('>>>>>>>>>>>>>>>>>>',location,keyword)
-        qs = JobPost.objects.values().filter(title__icontains=keyword, locations__icontains=location)
-        return JsonResponse({'search_items': list(qs), 'status': 'ok'})
+        qs = JobPost.objects.filter(title__icontains=keyword, locations__icontains=location) | JobPost.objects.filter(
+            posted_by__name__icontains=keyword, locations__icontains=location)
+        return JsonResponse({'search_items': list(qs.values()), 'status': 'ok'})
 
 
 class CategoryDetailsView(View):
@@ -83,10 +84,10 @@ class CategoryDetailsView(View):
         page = request.GET.get('page', 1)
         pagination = Paginator(categories_item, per_page=10)
         try:
-            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>catagory>>>>>>>>>>>>>>>>>>>>>>", page, pagination.num_pages)
+            # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>catagory>>>>>>>>>>>>>>>>>>>>>>", page, pagination.num_pages)
             all_jobs = pagination.page(page)
         except PageNotAnInteger:
             all_jobs = pagination.page(1)
         except EmptyPage:
             all_jobs = Paginator.page(pagination.num_pages)
-        return render(request, 'app/job/category-detail.html',{'all_jobs':all_jobs,"cat_name":cat.name})
+        return render(request, 'app/job/category-detail.html', {'all_jobs': all_jobs, "cat_name": cat.name})

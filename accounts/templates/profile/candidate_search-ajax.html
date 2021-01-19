@@ -1,0 +1,53 @@
+<script>
+    $('#can-search').click(function (e) {
+        e.preventDefault();
+        {#console.log("Clicked")#}
+        output = ``;
+        let keywords = $("#keywords").val();
+        let csr = $("input[name=csrfmiddlewaretoken]").val();
+        {#console.log(keywards, csr)#}
+        let myData = {keyword: keywords, csrfmiddlewaretoken: csr};
+        {#console.log("key",keywords);#}
+        $.ajax({
+            url:"{% url 'search-candidate' %}",
+            method: 'POST',
+            data:myData,
+            dataType: 'json',
+            success: function (data) {
+                console.log("Done data",data);
+                if (data.status){
+                    data.search_cand.map(function (candidate) {
+                        {#console.log(cadidate)#}
+                        output+=`<li>
+                                     <a href="/candidate-detail/${candidate.id}/">
+                                            <div class="d-flex m-b30">
+                                                <div class="job-post-company">
+                                                    <span><img src="images/testimonials/pic1.jpg"/></span>
+                                                </div>
+                                                <div class="job-post-info">
+                                                    <h4>${candidate.job_name}</h4>
+                                                    <ul>
+                                                        <li><i class="fa fa-map-marker"></i> ${candidate.address}</li>
+                                                        <li><i class="fa fa-usd"></i> ${candidate.job_type }</li>
+                                                        <li><i class="fa fa-clock-o"></i> ${candidate.created_at }
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="job-time mr-auto">
+                                                    <span>${candidate.keywords }</span>
+                                                </div>
+                                                <div class="salary-bx">
+                                                    <span>$ ${candidate.salary_range } Per Hour</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>`
+                        $("#search_candi").html(output);
+                    })
+                }
+            }
+        })
+    })
+</script>

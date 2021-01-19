@@ -89,7 +89,7 @@ class UserProfileForm(forms.Form):
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
                                 required=True, max_length=30)
     degree_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Degree'}),
-                                  required=True, max_length=30)
+                                  required=True, max_length=200)
     graduate_year = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Graduate Year'}), required=True,
         max_length=30)

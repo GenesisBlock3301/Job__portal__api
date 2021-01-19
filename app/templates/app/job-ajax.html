@@ -1,5 +1,6 @@
 <script>
     $('#searchId').click(function (e) {
+        console.log("Loading")
         output = ``
         e.preventDefault()
         let keyword = $("#keywordId").val()
@@ -13,9 +14,9 @@
             data: myData,
             dataType: 'json',
             success: function (data) {
-                console.log("Ajax working",data)
-                if(data.status){
-                    console.log(data.search_items)
+                {#console.log("Ajax working",data)#}
+                if(data.search_items === data.search_items.length){
+                    console.log(data)
                     data.search_items.map(function (job) {
                         console.log(job)
                         output+=`
@@ -47,6 +48,11 @@
                         `
                         $("#searchItemId").html(output)
                     })
+                }
+                else {
+                    output+=`<h3 class='text-center text-danger'>Search not fount</h3>`;
+                    console.log("Search not found")
+                    $("#searchItemId").html(output)
                 }
 
             }

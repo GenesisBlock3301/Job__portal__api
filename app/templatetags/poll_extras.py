@@ -13,6 +13,10 @@ def length(value):
     except (ValueError, TypeError):
         return ''
 
+def capitalize(value):
+    if value:
+        return value.capitalize()
 
+register.filter('capitalize',capitalize)
 register.filter('email_split', email_split)
 register.filter('length', length)

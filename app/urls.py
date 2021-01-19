@@ -4,7 +4,7 @@ from . import job_view
 
 urlpatterns = [
     path('',views.HomeView.as_view(),name='home'),
-    path('resume/',views.ResumeView.as_view(),name='resume'),
+    path('basic-info/',views.ResumeView.as_view(),name='resume'),
     path('add-skill/',views.AddSkillView.as_view(),name='add-skill'),
     path('add-experience/',views.AddExperinceView.as_view(),name='add-experience'),
     path('add-project/',views.AddProjectView.as_view(),name='add-project'),

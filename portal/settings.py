@@ -65,18 +65,18 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '449775602470-41k9kgfpoplp3dlee0osjr023b52rtrc.apps.googleusercontent.com',
-            'secret': 'BdoKXWh0tXbcyUp6M-qgBJLz',
-            'key': ''
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         'APP': {
+#             'client_id': '449775602470-41k9kgfpoplp3dlee0osjr023b52rtrc.apps.googleusercontent.com',
+#             'secret': 'BdoKXWh0tXbcyUp6M-qgBJLz',
+#             'key': ''
+#         }
+#     }
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

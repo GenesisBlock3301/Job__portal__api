@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load poll_extras %}
+{% block content %}
+    <div class="content-block">
+            <!-- Job Detail -->
+            <div class="section-full content-inner-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="job-info-box">
+                                <h3 class="m-t0 m-b10 font-weight-700 title-head text-center text-dark">
+                                    {{ candidate.first_name|capitalize }} {{ candidate.last_name }}
+                                </h3>
+                                <ul class="job-info">
+                                    <li><strong>Education</strong> {{ candidate.degree_name|capitalize }}</li>
+                                    <li><strong>Graduate Year:</strong> {{ candidate.graduate_year }}</li>
+                                    <li><i class="ti-location-pin text-black m-r5"></i> {{ candidate.address|capitalize }}</li>
+                                </ul>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6 mt-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Father Name</h5>
+                                                <p class="card-text text-center">{{ candidate.father_name|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Mother Name</h5>
+                                                <p class="card-text text-center">{{ candidate.mother_name|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Gender</h5>
+                                                <p class="card-text text-center">{{ candidate.gender|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Religion</h5>
+                                                <p class="card-text text-center">{{ candidate.religion|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Mariterial Status</h5>
+                                                <p class="card-text text-center">{{ candidate.marital_status|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Nationality</h5>
+                                                <p class="card-text text-center">{{ candidate.nationality|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Phone Number</h5>
+                                                <p class="card-text text-center">{{ candidate.phone_number }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Date Of Birth</h5>
+                                                <p class="card-text text-center">{{ candidate.date_of_birth }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Experience</h5>
+                                                <p class="card-text text-center">{{ candidate.keywords|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Job Type</h5>
+                                                <p class="card-text text-center">{{ candidate.job_type|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Preferable Job</h5>
+                                                <p class="card-text text-center">{{ candidate.job_name|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Desire Salary</h5>
+                                                <p class="card-text text-center">${{ candidate.salary_range }} per hour</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Address</h5>
+                                                <p class="card-text text-center">{{ candidate.address|capitalize }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -3,6 +3,9 @@ from django.views.generic import View
 from .forms import *
 from django.contrib.auth import login, authenticate, logout as dj_logout
 from .models import *
+from app.models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 
 
 class ProfileView(View):
@@ -91,10 +94,10 @@ class ProfileView(View):
                 'phone_number': profile.phone_number,
                 'date_of_birth': profile.date_of_birth,
                 'address': profile.address,
-                'job_name':profile.job_name,
-                'keywords':profile.keywords,
-                'salary_range':profile.salary_range,
-                'job_type':profile.job_type
+                'job_name': profile.job_name,
+                'keywords': profile.keywords,
+                'salary_range': profile.salary_range,
+                'job_type': profile.job_type
 
             })
             return render(request, 'profile/user-profile.html', {'profile': profile, 'form': form})
@@ -103,7 +106,7 @@ class ProfileView(View):
 
     def post(self, request):
         form = UserProfileForm(data=request.POST or None)
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
+        # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
         if form.is_valid():
             profile = Profile.objects.get(user=request.user)
             profile.first_name = request.POST['first_name']
@@ -133,4 +136,30 @@ class AllUserProfile(View):
 
     def get(self, request):
         candidates = Profile.objects.filter(user__is_seeker=True)
-        return render(request, 'profile/browse-candidates.html', {'candidates': candidates})
+        job_types = ['Part Time', 'Full Time', 'Other']
+        categories = Category.objects.all()
+        page = request.GET.get('page', 1)
+        pagination = Paginator(candidates, per_page=10)
+        try:
+            candidates = pagination.page(page)
+        except PageNotAnInteger:
+            candidates = pagination.page(1)
+        except EmptyPage:
+            candidates = Paginator.page(pagination.num_pages)
+        return render(request, 'profile/browse-candidates.html',
+                      {'candidates': candidates, 'job_types': job_types, 'categories': categories})
+
+
+def searchCandidate(request):
+    if request.method == "POST":
+        keyword = request.POST.get('keyword', '').lower()
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", keyword, "<<<<<<")
+        search_items = Profile.objects.filter(job_name__icontains=keyword) | Profile.objects.filter(
+            job_type__icontains=keyword) | Profile.objects.filter(keywords__icontains=keyword)
+        return JsonResponse({'search_cand': list(search_items.values()), 'status': "OK"})
+
+
+class UserProfileDetail(View):
+    def get(self, request, id):
+        candidate = Profile.objects.get(pk=id)
+        return render(request, 'profile/userprofile-to-other.html', {'candidate': candidate})
