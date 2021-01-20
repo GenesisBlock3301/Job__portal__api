@@ -55,6 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
+    pro_photo = models.FileField(upload_to='media/profile',null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     degree_name = models.CharField(max_length=200,default='')
     graduate_year = models.CharField(max_length=200,default='')
@@ -74,6 +75,7 @@ class Profile(models.Model):
     job_type = models.CharField(max_length=100,blank=True,null=True,default='')
     salary_range = models.CharField(max_length=100,blank=True,null=True,default='')
     created_at = models.DateTimeField(auto_now_add=True)
+    resume = models.FileField(upload_to='resume/',null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -81,6 +83,7 @@ class Profile(models.Model):
 
 class CompanyOwner(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    photo = models.FileField(upload_to='media/company/',null=True)
     name = models.CharField(max_length=1000)
     company_logo = models.FileField()
     details = models.TextField(max_length=1000)

@@ -5,7 +5,9 @@ from django.contrib.auth import login, authenticate, logout as dj_logout
 from .models import *
 from app.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse, Http404
+import os
+from django.conf import settings
 
 
 class ProfileView(View):
@@ -74,13 +76,15 @@ class ProfileView(View):
             try:
                 profile = Profile.objects.get(user=user)
             except Profile.DoesNotExist:
-                profile = Profile.objects.create(user=user, first_name='', last_name='', degree_name='',
+                profile = Profile.objects.create(user=user, pro_photo='', first_name='', last_name='', degree_name='',
                                                  graduate_year='', father_name='', mother_name='',
                                                  gender='', religion='', marital_status='', nationality='',
                                                  phone_number='', date_of_birth='', address='', job_name='',
                                                  keywords='', salary_range='', job_type='')
 
             form = UserProfileForm(initial={
+                'pro_photo': profile.pro_photo,
+                'resume':profile.resume,
                 'first_name': profile.first_name,
                 'last_name': profile.last_name,
                 'degree_name': profile.degree_name,
@@ -105,10 +109,12 @@ class ProfileView(View):
             return redirect('login-user')
 
     def post(self, request):
-        form = UserProfileForm(data=request.POST or None)
-        # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
+        form = UserProfileForm(request.POST,request.FILES)
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
         if form.is_valid():
             profile = Profile.objects.get(user=request.user)
+            profile.pro_photo = request.FILES['pro_photo']
+            profile.resume = request.FILES['resume']
             profile.first_name = request.POST['first_name']
             profile.last_name = request.POST['last_name']
             profile.father_name = request.POST['father_name']
@@ -163,3 +169,13 @@ class UserProfileDetail(View):
     def get(self, request, id):
         candidate = Profile.objects.get(pk=id)
         return render(request, 'profile/userprofile-to-other.html', {'candidate': candidate})
+
+
+def download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404

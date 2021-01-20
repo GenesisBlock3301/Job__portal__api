@@ -84,6 +84,8 @@ JOB_TYPE = [('Full Time', 'Full Time'), ('Part Time', 'Part Time')]
 
 
 class UserProfileForm(forms.Form):
+    pro_photo = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}),required=True)
+    resume = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}),required=True)
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
                                  required=True, max_length=30)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),

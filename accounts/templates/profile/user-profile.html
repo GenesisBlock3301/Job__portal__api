@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load poll_extras %}
 {% block content %}
     <div class="page-content bg-white">
         <!-- inner page banner -->
         <div class="dez-bnr-inr overlay-black-middle"
-             style="background-image:url('{% static 'images/banner/bnr1.jpg' %}');">
+             style="background-image:url('{% static 'images/banner/bnr1.jpg' %}');height: 5rem;">
             <div class="container">
                 <div class="dez-bnr-inr-entry">
                     <h1 class="text-white">Profile</h1>
@@ -24,6 +24,16 @@
                                 <h3 class="m-t0 m-b10 font-weight-700 title-head text-center text-dark">
                                     {{ profile.first_name }} {{ profile.last_name }}
                                 </h3>
+                                <div class="row mt-2">
+                                    <div class="col-sm-12 mt-2" style="border: none">
+                                        <div class="card" style="border: none">
+                                            <div class="card-body" style="text-align: center">
+                                                <img style="width: 200px;height: 200px;border-radius: 50%"
+                                                     src="{{ profile.pro_photo.url }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <ul class="job-info">
                                     <li><strong>Education</strong> {{ profile.degree_name }}</li>
                                     <li><strong>Graduate Year:</strong> {{ profile.graduate_year }}</li>
@@ -132,17 +142,28 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Desire Salary</h5>
-                                                <p class="card-text text-center">${{ profile.salary_range }} per hour</p>
+                                                <p class="card-text text-center">${{ profile.salary_range }} per
+                                                    hour</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Address</h5>
                                                 <p class="card-text text-center">{{ profile.address }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center text-info">Download Resume</h5>
+                                                <p  class="card-text text-center">
+                                                    <a href="{% url 'file' profile.resume.path %}">{{ profile.resume.name|split_resume }}</a>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +173,7 @@
                                 <button type="button" id="btn" class="btn btn-primary mb-5">Edit or Create Profile
                                 </button>
                             </div>
-                            <form id="form" method="post" action="">
+                            <form id="form" method="post" action="" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="row mt-2">
                                     <div class="col">
@@ -180,7 +201,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                       {{ form.gender }}
+                                        {{ form.gender }}
                                     </div>
                                     <div class="col">
                                         {{ form.religion }}
@@ -219,12 +240,16 @@
                                     </div>
                                 </div>
                                 <div class="row mt-2 mb-2">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         {{ form.address }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form.pro_photo }}
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-4">Save</button>
                             </form>
+                            {#                            <a href="{% url 'add-basic-info' %}" class="btn btn-primary mb-4">Create Your Own Resume</a>#}
                         </div>
                         <script>
                             $("#form").hide()

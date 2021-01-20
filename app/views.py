@@ -21,7 +21,7 @@ class HomeView(View):
 
 class ResumeView(View):
     def get(self,request):
-        return render(request,'app/resume/submit-resume.html')
+        return render(request,'app/resume/add-basic-info.html')
 
 
 class AddSkillView(View):
@@ -49,4 +49,7 @@ class AddCertificateView(View):
         return render(request,'app/resume/add-certificates.html')
 
 
+class ContactView(View):
+    def get(self,request):
+        return render(request,'app/site/contact.html')
 

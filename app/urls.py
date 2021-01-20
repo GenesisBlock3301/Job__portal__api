@@ -4,7 +4,7 @@ from . import job_view
 
 urlpatterns = [
     path('',views.HomeView.as_view(),name='home'),
-    path('basic-info/',views.ResumeView.as_view(),name='resume'),
+    path('add-basic-info/',views.ResumeView.as_view(),name='add-basic-info'),
     path('add-skill/',views.AddSkillView.as_view(),name='add-skill'),
     path('add-experience/',views.AddExperinceView.as_view(),name='add-experience'),
     path('add-project/',views.AddProjectView.as_view(),name='add-project'),
@@ -17,4 +17,6 @@ urlpatterns = [
     path('search-job/',job_view.SearchJobView.as_view(),name='search-job'),
 ]+[
     path('category-detail/<int:id>/',job_view.CategoryDetailsView.as_view(),name='category-details')
+]+[
+    path('contact/',views.ContactView.as_view(),name='contact')
 ]

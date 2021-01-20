@@ -53,9 +53,9 @@ class Education(models.Model):
 
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.FileField(upload_to='resume/',null=True)
     name = models.CharField(max_length=255)
     professional_title = models.CharField(max_length=255,default='')
-    photo = models.FileField(upload_to='media')
     role = models.CharField(max_length=255)
     github = models.CharField(max_length=255, null=True, blank=True)
     linkedin = models.CharField(max_length=255, blank=True, null=True)
@@ -97,10 +97,9 @@ TYPES = {
     ('Other','O')
 }
 
-import datetime
-
 
 class JobPost(models.Model):
+    photo = models.FileField(upload_to='media/jobs/',null=True)
     posted_by = models.ForeignKey(CompanyOwner,on_delete=models.CASCADE)
     job_category = models.ForeignKey(Category,related_name="job_cats",on_delete=models.CASCADE)
     job_type = models.CharField(choices=TYPES,max_length=255)
@@ -115,3 +114,11 @@ class JobPost(models.Model):
 
     def __str__(self):
         return f"{self.title} and id {self.id}"
+
+
+class Contact(models.Model):
+    address = models.CharField(max_length=255)
+    email = models.EmailField(max_length=200)
+    phone = models.CharField(max_length=20)
+
+

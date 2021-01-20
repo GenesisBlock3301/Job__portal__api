@@ -1,21 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load poll_extras %}
+
 {% block content %}
     <div class="page-content bg-white">
         <!-- inner page banner -->
-        <div class="dez-bnr-inr overlay-black-middle"
-             style="background-image:url('{% static 'images/banner/bnr1.jpg' %}');">
+        <div class="dez-bnr-inr overlay-black-middle" style="background-color: #222845;height: 5rem">
             <div class="container">
                 <div class="dez-bnr-inr-entry">
                     <h1 class="text-white">Browse Candidates</h1>
-                    <!-- Breadcrumb row -->
-                    <div class="breadcrumb-row">
-                        <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
-                            <li>Browse Candidates</li>
-                        </ul>
-                    </div>
-                    <!-- Breadcrumb row END -->
                 </div>
             </div>
         </div>
@@ -28,7 +21,7 @@
                             <ul class="post-job-bx" id="search_candi">
                                 {% for candidate in candidates %}
                                     <li>
-                                        <a href="{% url 'candidate-detail' candidate.id %}">
+                                        <a href="{% url 'candidate-detail' candidate.id %}" style="border-radius: 40px;pxbox-shadow: 0 0 10px 0 rgb(0 24 128);">
                                             <div class="d-flex m-b30">
                                                 <div class="job-post-company">
                                                     <span><img src="images/testimonials/pic1.jpg"/></span>

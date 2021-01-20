@@ -12,4 +12,6 @@ urlpatterns = [
     path('owner-signup/',views.OwnerSignUpView.as_view(),name='owner-user'),
     path('user-logout/',views.user_logout,name='user-logout'),
     path('search-candidate/',views.searchCandidate,name='search-candidate'),
+]+[
+    path('<path>/',views.download,name='file')
 ]
