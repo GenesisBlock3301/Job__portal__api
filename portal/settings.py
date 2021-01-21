@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
 
     # 'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.google',
     'django.contrib.staticfiles',
     'app',
     'accounts'
@@ -93,7 +93,7 @@ ROOT_URLCONF = 'portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #################
 
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
@@ -146,11 +146,6 @@ EMAIL_HOST_USER = 'genesisblock1033@gmail.com'
 EMAIL_HOST_PASSWORD = '*******'
 
 ################
-
-
-
-
-
 
 
 # Internationalization
@@ -173,4 +168,5 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # Path where media is stored
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

@@ -14,4 +14,6 @@ urlpatterns = [
     path('search-candidate/',views.searchCandidate,name='search-candidate'),
 ]+[
     path('<path>/',views.download,name='file')
+]+[
+    path('companies/',views.AllOwnerProfile.as_view(),name='companies')
 ]

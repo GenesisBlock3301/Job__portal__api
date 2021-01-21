@@ -66,3 +66,8 @@ class ContactView(View):
         send_mail(subject=subject, message=message, from_email=email,recipient_list=[EMAIL_HOST_USER], fail_silently=False)
 
         return redirect('contact')
+
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'app/site/about-us.html')

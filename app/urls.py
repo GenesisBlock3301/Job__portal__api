@@ -18,5 +18,6 @@ urlpatterns = [
 ]+[
     path('category-detail/<int:id>/',job_view.CategoryDetailsView.as_view(),name='category-details')
 ]+[
-    path('contact/',views.ContactView.as_view(),name='contact')
+    path('contact/',views.ContactView.as_view(),name='contact'),
+    path('about/',views.AboutView.as_view(),name='about')
 ]

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="dez-bnr-inr overlay-black-middle" style="background-color: #222845;height: 5rem">
+            <div class="container">
+                <div class="dez-bnr-inr-entry">
+                    <h1 class="text-white">Browse Candidates</h1>
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+        <div class="content-block">
+            <div class="section-full bg-white browse-job content-inner-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-8">
+                            <ul class="post-job-bx" id="search_candi">
+                                {% for candidate in candidates %}
+                                    <li>
+                                        <a href="{% url 'candidate-detail' candidate.id %}" style="border-radius: 40px;pxbox-shadow: 0 0 10px 0 rgb(0 24 128);">
+                                            <div class="d-flex m-b30">
+                                                <div class="job-post-company">
+                                                    <span><img src="images/testimonials/pic1.jpg"/></span>
+                                                </div>
+                                                <div class="job-post-info">
+                                                    <h4>{{ candidate.job_name|capitalize }}</h4>
+                                                    <ul>
+                                                        <li><i class="fa fa-map-marker"></i> {{ candidate.address|capitalize }}
+                                                        </li>
+                                                        <li><i class="fa fa-usd"></i> {{ candidate.job_type|capitalize }}</li>
+                                                        <li><i class="fa fa-clock-o"></i> {{ candidate.created_at }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="job-time mr-auto">
+                                                    <span>{{ candidate.keywords|capitalize }}</span>
+                                                    {#                                                    <span>CSS</span>#}
+                                                    {#                                                    <span>HTML</span>#}
+                                                    {#                                                    <span>Bootstrap</span>#}
+                                                </div>
+                                                <div class="salary-bx">
+                                                    <span>${{ candidate.salary_range }} Per Hour</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="pagination-bx m-t30">
+                                <ul class="pagination">
+                                    {% if candidates.has_other_pages %}
+                                        {% if candidates.has_previous %}
+                                            <li class="previous"><a
+                                                    href="?page={{ candidates.previous_page_number }}"><i
+                                                    class="ti-arrow-left"></i> Prev</a></li>
+                                        {% else %}
+                                            <li class="previous disabled"><a href=""><i class="ti-arrow-left"></i> Prev</a>
+                                            </li>
+                                        {% endif %}
+                                        {% for page in candidates.paginator.page_range %}
+                                            {% if users.number == i %}
+                                                <li ><span>{{ page }} <span class="sr-only">(current)</span></span>
+                                                </li>
+                                            {% else %}
+                                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if candidates.has_next %}
+                                            <li class="next"><a href="?page={{ candidates.next_page_number }}">Next<i
+                                                    class="ti-arrow-right"></i></a></li>
+                                        {% else %}
+                                            <li class="next disabled"><a href="">Next<i class="ti-arrow-right"></i></a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4">
+                            <div class="sticky-top">
+                                <div class="clearfix m-b30">
+                                    <h5 class="widget-title font-weight-700 text-uppercase">Keywords</h5>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <div class="">
+                                            <input type="text" class="form-control" id="keywords" name="keyword" placeholder="Search">
+                                            <button class="site-button mt-2" id="can-search">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     {% include 'profile/company-search-ajax.html' %}
+{% endblock %}

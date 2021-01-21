@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate, logout as dj_logout
 from .models import *
 from app.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse,HttpResponse, Http404
+from django.http import JsonResponse, HttpResponse, Http404
 import os
 from django.conf import settings
 
@@ -76,15 +76,18 @@ class ProfileView(View):
             try:
                 profile = Profile.objects.get(user=user)
             except Profile.DoesNotExist:
-                profile = Profile.objects.create(user=user, pro_photo='', first_name='', last_name='', degree_name='',
+                # path = settings.MEDIA_ROOT+'/media/Capture.PNG'
+                profile = Profile.objects.create(user=user, pro_photo='', resume='', first_name='', last_name='',
+                                                 degree_name='',
                                                  graduate_year='', father_name='', mother_name='',
                                                  gender='', religion='', marital_status='', nationality='',
                                                  phone_number='', date_of_birth='', address='', job_name='',
                                                  keywords='', salary_range='', job_type='')
+                profile.save()
 
             form = UserProfileForm(initial={
                 'pro_photo': profile.pro_photo,
-                'resume':profile.resume,
+                'resume': profile.resume,
                 'first_name': profile.first_name,
                 'last_name': profile.last_name,
                 'degree_name': profile.degree_name,
@@ -109,7 +112,7 @@ class ProfileView(View):
             return redirect('login-user')
 
     def post(self, request):
-        form = UserProfileForm(request.POST,request.FILES)
+        form = UserProfileForm(request.POST, request.FILES)
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", form)
         if form.is_valid():
             profile = Profile.objects.get(user=request.user)
@@ -179,3 +182,35 @@ def download(request, path):
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
             return response
     raise Http404
+
+
+class AllOwnerProfile(View):
+    def get(self, request):
+        companies = Profile.objects.filter(user__is_owner=True)
+        job_types = ['Part Time', 'Full Time', 'Other']
+        categories = Category.objects.all()
+        page = request.GET.get('page', 1)
+        pagination = Paginator(companies, per_page=10)
+        try:
+            companies = pagination.page(page)
+        except PageNotAnInteger:
+            companies = pagination.page(1)
+        except EmptyPage:
+            companies = Paginator.page(pagination.num_pages)
+        return render(request, 'profile/browse-company.html',
+                      {'companies': companies, 'job_types': job_types, 'categories': categories})
+
+
+def searchCompany(request):
+    if request.method == "POST":
+        keyword = request.POST.get('keyword', '').lower()
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", keyword, "<<<<<<")
+        search_items = Profile.objects.filter(job_name__icontains=keyword) | Profile.objects.filter(
+            job_type__icontains=keyword) | Profile.objects.filter(keywords__icontains=keyword)
+        return JsonResponse({'search_cand': list(search_items.values()), 'status': "OK"})
+
+
+class CompanyDetail(View):
+    def get(self, request, id):
+        candidate = Profile.objects.get(pk=id)
+        return render(request, 'profile/userprofile-to-other.html', {'candidate': candidate})

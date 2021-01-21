@@ -64,15 +64,12 @@
                     <div class="extra-nav">
                         <div class="extra-cell">
                             {% if user.is_authenticated %}
-                                <a href="{% url 'user-logout' %}" class="site-button"><i class="fa fa-lock"></i> logout</a>
-                                <a href="{% url 'profile' %}" class="site-button"><i
-                                        class="fa fa-lock"></i> {{ user.email|email_split }}</a>
+                                <a href="{% url 'user-logout' %}" class="site-button"><i class="fa fa-lock"></i> Logout</a>
+                                <a href="{% url 'profile' %}" class="site-button"><i class="fa fa-lock"></i> {{ user.email|email_split }}</a>
                             {% else %}
-                                <a href="{% url 'owner-user' %}" class="site-button"><i class="fa fa-user"></i>
-                                    Owner</a>
+                                <a href="{% url 'owner-user' %}" class="site-button"><i class="fa fa-user"></i>Owner</a>
                                 <a href="{% url 'seeker-user' %}" class="site-button"><i class="fa fa-user"></i> Seeker</a>
-                                <a href="{% url 'login-user' %}" class="site-button"><i class="fa fa-lock"></i>
-                                    login</a>
+                                <a href="{% url 'login-user' %}" class="site-button"><i class="fa fa-lock"></i>Login</a>
                             {% endif %}
 
                         </div>

@@ -28,8 +28,10 @@
                                     <div class="col-sm-12 mt-2" style="border: none">
                                         <div class="card" style="border: none">
                                             <div class="card-body" style="text-align: center">
-                                                <img style="width: 200px;height: 200px;border-radius: 50%"
-                                                     src="{{ profile.pro_photo.url }}" alt="">
+                                                {% if profile.pro_photo %}
+                                                    <img style="width: 200px;height: 200px;border-radius: 50%"
+                                                         src="{{ profile.pro_photo.url }}" alt="">
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -161,8 +163,12 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center text-info">Download Resume</h5>
-                                                <p  class="card-text text-center">
-                                                    <a href="{% url 'file' profile.resume.path %}">{{ profile.resume.name|split_resume }}</a>
+                                                <p class="card-text text-center">
+                                                    {% if profile.resume %}
+                                                        <a href="{% url 'file' profile.resume.path %}">{{ profile.resume.name|split_resume }}</a>
+                                                    {% else %}
+                                                        <p>Null</p>
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                         </div>
@@ -244,7 +250,14 @@
                                         {{ form.address }}
                                     </div>
                                     <div class="col-sm-6">
+                                        <label for="">Upload Photo</label>
                                         {{ form.pro_photo }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-sm-6">
+                                        <label for="">Upload Resume</label>
+                                        {{ form.resume }}
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-4">Save</button>
