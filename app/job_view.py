@@ -4,6 +4,7 @@ from .job_form import *
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
+import datetime
 
 
 class CreateJob(View):
@@ -29,14 +30,14 @@ class CreateJob(View):
             created_at = datetime.datetime.now()
             expire_date = request.POST.get('expire_date', '')
             categoryInstance = Category.objects.get(name=job_category)
-            companyOwner = CompanyOwner.objects.get(user=user)
             # print(">>>>>>>>>>>>>>>>>>>>>>>>", categoryInstance, ">>>>>>>>>>>>>>>>>>>", companyOwner)
-            job = JobPost.objects.create(posted_by=companyOwner, job_category=categoryInstance, title=title,
-                                         job_type=job_type,
-                                         locations=location, requirements=requirements, description=description,
-                                         salary=salary,
-                                         experience=experience, created_at=created_at, expire_date=expire_date)
-            job.save()
+            if request.user.is_owner or request.user.is_superuser:
+                job = JobPost.objects.create(posted_by=request.user, job_category=categoryInstance, title=title,
+                                             job_type=job_type,
+                                             locations=location, requirements=requirements, description=description,
+                                             salary=salary,
+                                             experience=experience, created_at=created_at, expire_date=expire_date)
+                job.save()
         category = Category.objects.all()
         job_type = ['Part Time', 'Full Time', 'Other']
         return render(request, 'app/job/create-job.html',

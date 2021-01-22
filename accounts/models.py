@@ -82,7 +82,7 @@ class Profile(models.Model):
 
 
 class CompanyOwner(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name="companies",on_delete=models.CASCADE)
     photo = models.FileField(upload_to='media/company/',null=True,blank=True)
     name = models.CharField(max_length=1000)
     company_logo = models.FileField(upload_to='company',null=True,blank=True)

@@ -81,14 +81,14 @@
                                 <a href="{% url 'home' %}">Home</a>
                             </li>
                             <li>
-{#                                {% if user.is_seeker %}#}
+                                {% if user.is_seeker %}
                                     <a href="#">Companies</a>
-{#                                {% endif %}#}
+                                {% endif %}
                             </li>
                             <li>
-{#                                {% if user.is_owner %}#}
+                                {% if user.is_owner %}
                                     <a href="{% url 'candidates' %}" class="dez-page">Candidates</a>
-{#                                {% endif %}#}
+                                {% endif %}
                             </li>
                             <li>
                                 <a href="{% url 'profile' %}" class="dez-page">Profile</a>
