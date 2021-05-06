@@ -25,7 +25,7 @@ SECRET_KEY = 'th)&mnl*ookfe*(^k!4)0e_b+2h-abg&&tex4@bm3-herzuz#@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.134', 'localhost']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -118,7 +118,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'genesisblock1033@gmail.com'
-EMAIL_HOST_PASSWORD = '****'
+EMAIL_HOST_PASSWORD = '7208393Na?'
 
 ################
 
